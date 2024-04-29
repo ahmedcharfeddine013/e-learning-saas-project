@@ -18,7 +18,7 @@ export default function InstructorLayout({
             <NavLink href={"admin/blogs"}>Blogs</NavLink>
           </div>
         </Nav>
-        {children}
+        <div className="p-10 ">{children}</div>
       </body>
     </html>
   );
