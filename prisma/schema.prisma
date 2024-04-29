@@ -28,12 +28,15 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Blog      Blog[]
+  profilePic String
 }
 
 model Blog {
   id      String @id @unique @default(uuid())
   title   String
   content String
+  topic   String
+  tags    String
   userId  String
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
