@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
 
 export async function middleware(req: NextRequest) {
@@ -25,6 +26,13 @@ async function isAuthenticated(req: NextRequest) {
   )
 }
 
-export const config = {
+export const adminConfig = {
   matcher: "/admin/:path*",
 }
+
+
+export default clerkMiddleware();
+
+export const config = {
+  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
+};
