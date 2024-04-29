@@ -15,7 +15,7 @@ export default function InstructorLayout({
           <Logo />
           <div className="flex items-center">
             <NavLink href={"/admin/users"}>Users</NavLink>
-            <NavLink href={"admin/blogs"}>Blogs</NavLink>
+            <NavLink href={"/admin/blogs"}>Blogs</NavLink>
           </div>
         </Nav>
         <div className="p-10 ">{children}</div>
