@@ -14,8 +14,7 @@ datasource db {
 }
 
 enum Role {
-  STUDENT
-  INSTRUCTOR
+  USER
   ADMIN
 }
 
@@ -28,4 +27,13 @@ model User {
   password  String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Blog      Blog[]
+}
+
+model Blog {
+  id      String @id @unique @default(uuid())
+  title   String
+  content String
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
