@@ -8,6 +8,15 @@ import {
 import db from "@/db/db";
 import React from "react";
 import PageHeader from "./_components/PageHeader";
+import {
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { User } from "@prisma/client";
 
 async function getUsers() {
   return db.user.count();
@@ -49,7 +58,9 @@ export default async function AdminHomePage() {
           body={blogsCount.toString()}
         />
       </div>
-      <div></div>
+      <div>
+        <ResentUsersTable />
+      </div>
     </div>
   );
 }
@@ -72,8 +83,70 @@ function DashboardCard({ title, description, body }: DashboardCardProps) {
   );
 }
 
-function ResentDashboardCard() {
-  return <div>
-    
-  </div>;
+async function ResentUsersTable() {
+  const users = await db.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+    },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+
+  if (users.length === 0) return <p>No products found</p>;
+
+  return (
+    <div>
+      <TableCaption>A list of your recent Users </TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+        </TableRow>
+        <TableBody>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell>{user.name}</TableCell>
+              <TableCell>{user.email}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </TableHeader>
+    </div>
+  );
+}
+
+async function ResentBlogsTable() {
+  const blogs = await db.blog.findMany({
+    select: {
+      id: true,
+      title: true,
+      user: true,
+    },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+
+  if (blogs.length === 0) return <p>No blogs found</p>;
+
+  return (
+    <div>
+      <TableCaption>A list of your recent Users </TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Title</TableHead>
+          <TableHead>Published By</TableHead>
+        </TableRow>
+        <TableBody>
+          {blogs.map((blog) => (
+            <TableRow key={blog.id}>
+              <TableCell>{blog.title}</TableCell>
+              <TableCell>{blog.user.name}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </TableHeader>
+    </div>
+  );
 }
