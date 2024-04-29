@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { User } from "@prisma/client";
+import Link from "next/link";
 
 async function getUsers() {
   return db.user.count();
@@ -58,8 +59,9 @@ export default async function AdminHomePage() {
           body={blogsCount.toString()}
         />
       </div>
-      <div>
+      <div className="grid grid-cols-2 gap-4">
         <ResentUsersTable />
+        <ResentBlogsTable />
       </div>
     </div>
   );
@@ -94,7 +96,7 @@ async function ResentUsersTable() {
     take: 6,
   });
 
-  if (users.length === 0) return <p>No products found</p>;
+  if (users.length === 0) return <p>No Users found</p>;
 
   return (
     <div>
@@ -107,8 +109,10 @@ async function ResentUsersTable() {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id}>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.email}</TableCell>
+              <Link href={`/admin/users/${user.id}`}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+              </Link>
             </TableRow>
           ))}
         </TableBody>
@@ -141,8 +145,10 @@ async function ResentBlogsTable() {
         <TableBody>
           {blogs.map((blog) => (
             <TableRow key={blog.id}>
-              <TableCell>{blog.title}</TableCell>
-              <TableCell>{blog.user.name}</TableCell>
+              <Link href={`/admin/blogs/${blog.id}`}>
+                <TableCell>{blog.title}</TableCell>
+                <TableCell>{blog.user.name}</TableCell>
+              </Link>
             </TableRow>
           ))}
         </TableBody>
