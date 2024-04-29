@@ -13,7 +13,7 @@ export default function InstructorLayout({
       <body>
         <Nav>
           <Logo />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center">
             <NavLink href={"/admin/users"}>Users</NavLink>
             <NavLink href={"admin/blogs"}>Blogs</NavLink>
           </div>
