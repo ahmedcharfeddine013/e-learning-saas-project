@@ -6,7 +6,7 @@ import React, { ComponentProps, ReactNode } from "react";
 
 export default function Nav({ children }: { children: ReactNode }) {
   return (
-    <nav className="w-full bg-secondary flex px-10 text-primary gap-4 items-center justify-between">
+    <nav className="w-full bg-secondary flex px-10 text-primary gap-4 items-center justify-between fixed">
       {children}
     </nav>
   );

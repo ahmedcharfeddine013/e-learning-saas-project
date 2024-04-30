@@ -27,12 +27,12 @@ async function getBlogs() {
   return db.blog.count();
 }
 
-async function getRecentUsers() {
-  return db.user.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 6,
-  });
-}
+// async function getRecentUsers() {
+//   return db.user.findMany({
+//     orderBy: { createdAt: "desc" },
+//     take: 6,
+//   });
+// }
 
 async function getRecentBlogs() {
   return db.blog.findMany({
@@ -92,7 +92,7 @@ async function ResentUsersTable() {
       name: true,
       email: true,
     },
-    orderBy: { createdAt: "desc" },
+    // orderBy: { createdAt: "desc" },
     take: 6,
   });
 

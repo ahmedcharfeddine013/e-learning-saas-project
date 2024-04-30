@@ -27,7 +27,7 @@ async function ResentUsersTable() {
       name: true,
       email: true,
     },
-    orderBy: { createdAt: "desc" },
+    // orderBy: { createdAt: "desc" },
     take: 6,
   });
 
