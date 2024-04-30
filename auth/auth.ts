@@ -5,7 +5,7 @@ import { getUserById } from "../data/user";
 
 import db from "@/db/db";
 import UserRole from '@prisma/client'
-import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
+import { getTwoFactorConfirmationByUserId } from "../data/two-factor-confirmation";
 
 export const {
   handlers: { GET, POST },
