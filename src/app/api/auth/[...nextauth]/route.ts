@@ -1,6 +1,6 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { AuthOptions, Session } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import db from "@/db/db";
 
@@ -30,12 +30,17 @@ export const authOptions: AuthOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      session.user.role =  token.role;
+      // Perform null check before accessing session.user
+      if (session && token && token.role) {
+        // Create a new session user object with the role property
+        const newUser = {
+          ...(session.user || {}),
+          role: token.role,
+        };
+        // Assign the new session user object to session.user
+        session.user = newUser;
+      }
       return session;
     },
   },
 };
-
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
